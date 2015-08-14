@@ -1165,7 +1165,7 @@ public class CSUnitTest extends DatabaseTestCase
             "  (myvarchar,                   " +
             "   myvarbinary)                 " +
             " values                         " +
-            "  (\'This is a test with german umlauts ‰ˆ¸\', " +
+            "  (\'This is a test with german umlauts √Ñ√§√ñ√∂√ú√º√ü‚Ç¨', " +
             "   0x4749463839610A000A0080FF00D73D1B0000002C000000000A000A00000208848FA9CBED0F632B003B" +
             "  )";
             stmt.executeUpdate(sql);
@@ -1218,7 +1218,7 @@ public class CSUnitTest extends DatabaseTestCase
 
                 output.println("Testing getUnicodeStream()");
                 Reader reader = rs.getCharacterStream("myvarchar");
-                expect = "This is a test with german umlauts ‰ˆ¸";
+                expect = "This is a test with german umlauts √Ñ√§√ñ√∂√ú√º√ü‚Ç¨";
                 char[] charsToRead = new char[expect.length()];
                 count = reader.read(charsToRead, 0, expect.length());
                 if (count == expect.length()) {
@@ -1278,7 +1278,7 @@ public class CSUnitTest extends DatabaseTestCase
                 try {
                     reader = (Reader) UnitTestBase.invokeInstanceMethod(
                             rs, "getCharacterStream", new Class[]{String.class}, new Object[]{"myvarchar"});
-                    expect = "This is a test with german umlauts ‰ˆ¸";
+                    expect = "This is a test with german umlauts √Ñ√§√ñ√∂√ú√º√ü‚Ç¨";
                     charsToRead = new char[expect.length()];
                     count = reader.read(charsToRead, 0, expect.length());
                     if (count == expect.length()) {
@@ -1351,9 +1351,9 @@ public class CSUnitTest extends DatabaseTestCase
             "   myntext)                     " +
             " values                         " +
             "  (\'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\',     " +
-            "   \'‰ˆ¸ƒ÷‹\',                  " +
-            "   \'‰ˆ¸ƒ÷‹\',                  " +
-            "   \'‰ˆ¸ƒ÷‹\'                   " +
+            "   \'√Ñ√§√ñ√∂√ú√º√ü‚Ç¨\',                  " +
+            "   \'√Ñ√§√ñ√∂√ú√º√ü‚Ç¨\',                  " +
+            "   \'√Ñ√§√ñ√∂√ú√º√ü‚Ç¨\'                   " +
             "  )";
             stmt.executeUpdate(sql);
 
@@ -1368,18 +1368,18 @@ public class CSUnitTest extends DatabaseTestCase
                }
 
                test = rs.getString(2);
-               if (test.length() != 2000 || ! "‰ˆ¸ƒ÷‹".equals(test.trim())) {
-                   fail("Testing nchar: failed, got \'"+test.trim()+"\' instead of \'‰ˆ¸ƒ÷‹\'");
+               if (test.length() != 2000 || ! "√Ñ√§√ñ√∂√ú√º√ü‚Ç¨".equals(test.trim())) {
+                   fail("Testing nchar: failed, got \'"+test.trim()+"\' instead of \'√Ñ√§√ñ√∂√ú√º√ü‚Ç¨\'");
                }
 
                test = rs.getString(3);
-               if (test.length() != 6 || ! "‰ˆ¸ƒ÷‹".equals(test)) {
-                   fail("Testing nvarchar: failed, got \'"+test+"\' instead of \'‰ˆ¸ƒ÷‹\'");
+               if (test.length() != 6 || ! "√Ñ√§√ñ√∂√ú√º√ü‚Ç¨".equals(test)) {
+                   fail("Testing nvarchar: failed, got \'"+test+"\' instead of \'√Ñ√§√ñ√∂√ú√º√ü‚Ç¨\'");
                }
 
                test = rs.getString(4);
-               if (test.length() != 6 || ! "‰ˆ¸ƒ÷‹".equals(test)) {
-                   fail("Testing ntext: failed, got \'"+test+"\' instead of \'‰ˆ¸ƒ÷‹\'");
+               if (test.length() != 6 || ! "√Ñ√§√ñ√∂√ú√º√ü‚Ç¨".equals(test)) {
+                   fail("Testing ntext: failed, got \'"+test+"\' instead of \'√Ñ√§√ñ√∂√ú√º√ü‚Ç¨\'");
                }
             }
         } catch (java.sql.SQLException e) {

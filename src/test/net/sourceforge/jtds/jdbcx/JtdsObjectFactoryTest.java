@@ -25,8 +25,6 @@ import junit.framework.TestSuite;
 import net.sourceforge.jtds.jdbc.DefaultProperties;
 import net.sourceforge.jtds.jdbc.Driver;
 import net.sourceforge.jtds.jdbc.UnitTestBase;
-import net.sourceforge.jtds.jdbcx.JtdsDataSource;
-import net.sourceforge.jtds.jdbcx.JtdsObjectFactory;
 
 /**
  * Unit tests for the {@link JtdsObjectFactory} class.

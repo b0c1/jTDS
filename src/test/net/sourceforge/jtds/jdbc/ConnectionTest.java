@@ -31,9 +31,6 @@ import java.util.Enumeration;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import net.sourceforge.jtds.jdbc.JtdsConnection;
-import net.sourceforge.jtds.jdbc.DefaultProperties;
-import net.sourceforge.jtds.jdbc.Messages;
 
 /**
  * Unit test for the {@link JtdsConnection} class.

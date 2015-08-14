@@ -792,7 +792,7 @@ public class JtdsDatabaseMetaData implements java.sql.DatabaseMetaData {
      * @throws SQLException if a database-access error occurs.
      */
     public String getExtraNameCharacters() throws SQLException {
-        // MS driver returns "$#@" Sybase JConnect returns "@#$ге"
+        // MS driver returns "$#@" Sybase JConnect returns "@#$.."
         return "$#@";
     }
 
