@@ -42,6 +42,17 @@
       <email>ickzon@users.sourceforge.net</email>
     </developer>
   </developers>
+  
+  <build>
+    <sourceDirectory>src/main</sourceDirectory>
+    <testSourceDirectory>src/test</testSourceDirectory>
+    <testResources>
+        <testResource>
+            <directory>conf</directory>
+        </testResource>
+    </testResources>
+
+   </build>
 
   <dependencies>
     <!-- jCIFS may be required for named pipe connections -->
@@ -51,7 +62,24 @@
       <version>1.3.17</version>
       <scope>compile</scope>
       <optional>true</optional>
+    
     </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <version>4.11</version>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>hamcrest-core</artifactId>
+                    <groupId>org.hamcrest</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
   </dependencies>
-
+    <properties>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 </project>
