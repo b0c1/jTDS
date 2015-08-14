@@ -48,7 +48,7 @@ class TdsTlsOutputStream extends FilterOutputStream {
     /**
      * Used for holding back CKE, CCS and FIN records.
      */
-    final private List bufferedRecords = new ArrayList();
+    final private List<byte[]> bufferedRecords = new ArrayList<>();
     private int totalSize;
 
     /**
@@ -79,9 +79,8 @@ class TdsTlsOutputStream extends FilterOutputStream {
     private void flushBufferedRecords() throws IOException {
         byte tmp[] = new byte[totalSize];
         int off = 0;
-        for (int i = 0; i < bufferedRecords.size(); i++) {
-            byte x[] = (byte[])bufferedRecords.get(i);
-            System.arraycopy(x, 0, tmp, off, x.length);
+        for (byte[] x : bufferedRecords) {
+             System.arraycopy(x, 0, tmp, off, x.length);
             off += x.length;
         }
         putTdsPacket(tmp, 0, off);
@@ -90,7 +89,7 @@ class TdsTlsOutputStream extends FilterOutputStream {
     }
 
     public void write(byte[] b, int off, int len) throws IOException {
-        if (len < Ssl.TLS_HEADER_SIZE || off > OFFSET) {
+        if (len < Ssl.TLS_HEADER_SIZE) {
             // Too short for a TLS packet just write it
             out.write(b, off, len);
             return;
@@ -180,15 +179,5 @@ class TdsTlsOutputStream extends FilterOutputStream {
         out.write(tdsHdr, 0, tdsHdr.length);
         out.write(b, off, len);
     }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.io.OutputStream#flush()
-     */
-    public void flush() throws IOException {
-        super.flush();
-    }
-
 }
 
