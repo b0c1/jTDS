@@ -63,7 +63,11 @@ public class SSPIJNIClient {
 
     static {
         try {
-            System.loadLibrary("ntlmauth");
+            if ("amd64".equals(System.getProperty("os.arch"))) {
+                System.loadLibrary("ntlmauth_x64");
+            } else {
+                System.loadLibrary("ntlmauth");
+            }
             SSPIJNIClient.libraryLoaded = true;
         } catch (UnsatisfiedLinkError err) {
             Logger.println("Unable to load library: " + err);
