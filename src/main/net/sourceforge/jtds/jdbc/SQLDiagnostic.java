@@ -389,16 +389,22 @@ class SQLDiagnostic {
             }
 
             addException(e);
+            SQLDiagnosticService.fireDiagnosticEvent(SQLDiagnosticEvent.EXCEPTION, number, state, serverity, message,
+                    server, procName, line);
         } else {
             if (number == 0) {
                 // Output from a TransactSQL print statement.
                 SQLWarning w = new SQLWarning(message, null, 0);
                 addWarning(w);
+                SQLDiagnosticService.fireDiagnosticEvent(SQLDiagnosticEvent.PRINT, number, state, serverity, message,
+                        server, procName, line);
             } else {
                 SQLWarning w = new SQLWarning(message,
                                               getStateCode(number, serverType, "01000"),
                                               number);
                 addWarning(w);
+                SQLDiagnosticService.fireDiagnosticEvent(SQLDiagnosticEvent.WARNING, number, state, serverity, message,
+                        server, procName, line);
             }
         }
     }

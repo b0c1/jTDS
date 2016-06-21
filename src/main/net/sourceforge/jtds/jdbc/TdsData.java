@@ -1538,9 +1538,8 @@ public class TdsData {
                 break;
 
             case Types.DECIMAL:
-            case Types.NUMERIC:
                 pi.tdsType  = SYBDECIMAL;
-                int prec = connection.getMaxPrecision();
+                int prec = pi.precision > 0 ? pi.precision : connection.getMaxPrecision();
                 int scale = DEFAULT_SCALE;
                 if (pi.value instanceof BigDecimal) {
                     scale = ((BigDecimal)pi.value).scale();
@@ -1551,6 +1550,19 @@ public class TdsData {
 
                 break;
 
+            case Types.NUMERIC:
+                pi.tdsType  = SYBNUMERIC;
+                prec = pi.precision > 0 ? pi.precision : connection.getMaxPrecision();
+                scale = DEFAULT_SCALE;
+                if (pi.value instanceof BigDecimal) {
+                    scale = ((BigDecimal)pi.value).scale();
+                } else if (pi.scale >= 0 && pi.scale <= prec) {
+                    scale = pi.scale;
+                }
+                pi.sqlType = "numeric(" + prec + ',' + scale + ')';
+
+                break;
+        	
             case Types.OTHER:
             case Types.NULL:
                 // Send a null String in the absence of anything better
