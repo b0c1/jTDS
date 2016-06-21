@@ -42,6 +42,10 @@ public interface Ssl {
      * client-trusted authority.
      */
     String SSL_AUTHENTICATE = "authenticate";
+    /** TLS data offset in JRE1.7 and older **/
+    int TLS_DATA_OFFSET_1_7 = 0;
+    /** TLS data offset in JRE1.8 and newer **/
+    int TLS_DATA_OFFSET_1_8 = 256;
     /** Size of TLS record header. */
     int  TLS_HEADER_SIZE = 5;
     /** TLS Change Cipher Spec record type. */

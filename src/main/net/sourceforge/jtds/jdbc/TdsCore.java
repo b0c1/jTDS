@@ -3183,7 +3183,7 @@ public class TdsCore {
 //      int fmtLen = in.read();
 //
 //      // This is the actual control information for a column. Its length is
-//      // fmtLen. If fmtLen is 0, this argument doesn’t exist in the data stream.
+//      // fmtLen. If fmtLen is 0, this argument does not exist in the data stream.
 //      // The fmt field is treated as a binary byte string. There is no character
 //      // set conversion performed on this argument.
 //      in.read( new byte[fmtLen] );
@@ -4300,7 +4300,7 @@ public class TdsCore {
       int bytesRead = 2;
 
       // This is the number of aggregate operators in the compute clause.
-      // For example, the clause “compute count(x), min(x), max(x)” has three
+      // For example, the clause "compute count(x), min(x), max(x)" has three
       // aggregate operators. This field is a one-byte, unsigned integer.
       int computeByCount = in.read();
 
@@ -4368,16 +4368,16 @@ public class TdsCore {
       }
 
       // This is the number of columns in the by-list of the compute clause.
-      // For example, the compute clause “compute count(sales) by year,
-      // month, division” has three by-columns. It is legal to have no
+      // For example, the compute clause "compute count(sales) by year,
+      // month, division" has three by-columns. It is legal to have no
       // bycolumns. In that case, # ByCols is 0. The argument is a one-byte,
       // unsigned integer.
       int byCols = in.read();
 
       // When there are by-columns in a compute (#ByCols not equal to 0),
       // there is one Col# argument for each select column listed in the
-      // bycolumns clause. For example, “select a, b, c order by b, a compute
-      // sum(a) by b, a” will return # ByCols as 2 followed by Col# 2 andCol#
+      // bycolumns clause. For example, "select a, b, c order by b, a compute
+      // sum(a) by b, a" will return # ByCols as 2 followed by Col# 2 andCol#
       // 1. The first column number is 1. This argument is a one-byte,
       // unsigned integer.
       for( int c = 0; c < byCols; c ++ )
@@ -4418,7 +4418,7 @@ public class TdsCore {
 
          // This the length, in bytes, of the name or heading for each of the
          // aggregate operators in the compute clause. Aggregate operators are not
-         // required to have headings and usually don’t. In the null heading case,
+         // required to have headings and usually do not. In the null heading case,
          // NameLen will be 0 and no name field will follow. There is a NameLen
          // for each operator in a compute clause.
          int nameLen = in.read();
