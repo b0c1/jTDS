@@ -792,7 +792,7 @@ public class JtdsDatabaseMetaData implements java.sql.DatabaseMetaData {
      * @throws SQLException if a database-access error occurs.
      */
     public String getExtraNameCharacters() throws SQLException {
-        // MS driver returns "$#@" Sybase JConnect returns "@#$£¥"
+        // MS driver returns "$#@" Sybase JConnect returns "@#$ï¿½ï¿½"
         return "$#@";
     }
 
@@ -1594,25 +1594,11 @@ public class JtdsDatabaseMetaData implements java.sql.DatabaseMetaData {
     public java.sql.ResultSet getSchemas() throws SQLException {
         java.sql.Statement statement = connection.createStatement();
 
-        String sql;
-
-        if (connection.getServerType() == Driver.SQLSERVER && connection.getDatabaseMajorVersion() >= 9) {
-            sql = "SELECT name AS TABLE_SCHEM, NULL as TABLE_CATALOG FROM sys.schemas";
-        } else {
-            sql = "SELECT name AS TABLE_SCHEM, NULL as TABLE_CATALOG FROM dbo.sysusers";
-
-            //
-            // MJH - isLogin column only in MSSQL >= 7.0
-            //
-            if (tdsVersion >= Driver.TDS70) {
-                sql += " WHERE islogin=1";
-            } else {
-                sql += " WHERE uid>0";
-            }
-        }
-
-        sql += " ORDER BY TABLE_SCHEM";
-
+        String sql = "SELECT b.name AS TABLE_SCHEM, NULL as TABLE_CATALOG " +
+            "FROM sys.objects a " +
+            "INNER JOIN sys.schemas b ON a.schema_id = b.schema_id " +
+            "GROUP BY b.schema_id, b.name " +
+            "ORDER BY b.name";
         return statement.executeQuery(sql);
     }
 
