@@ -1,4 +1,6 @@
 *.class
+build/*
+dist/*
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
@@ -13,3 +15,7 @@ hs_err_pid*
 
 # Mac desktop service store files
 .DS_Store
+
+#IntelliJ files
+.idea
+*iml
